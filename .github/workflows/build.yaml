@@ -11,6 +11,7 @@ on:
       - RCPMultiPAN/**
     branches:
       - main
+      - jl/add_e2201_rodret
     tags:
       - '*'
 
