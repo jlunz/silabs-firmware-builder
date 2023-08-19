@@ -112,7 +112,6 @@ jobs:
       extra_c_defs: ""
       sdk_version: ${{ needs.build-container.outputs.sdk_version }}
       metadata_fw_type: "bootloader-uart-xmodem"
-      baudrate: 115200
 
   # rcp-multi-pan-firmware-build:
   #   name: RCP Multi-PAN
