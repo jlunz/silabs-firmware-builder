@@ -105,12 +105,13 @@ jobs:
           LC_TIME=C meta_datetime=$(git log -1 --format="%cd" --date=format:"%b %-d %Y %H:%M:%S")
           cd ${{ inputs.firmware_name }}
           sed -i "s/^C_DEFS\s*=.*$/C_DEFS = '-DOPENTHREAD_BUILD_DATETIME=\"$meta_datetime\"' ${{ inputs.extra_c_defs }}/" \
+          sed -i "s/^
             "${{ inputs.project_name }}.Makefile"
 
       - name: Build Firmware
         run: |
           cd ${{ inputs.firmware_name }}
-          make -f ${{ inputs.project_name }}.Makefile release
+          POST_BUILD_EXE=/opt/commander/commander make -f ${{ inputs.project_name }}.Makefile release
       - name: Add Firmware Metadata
         run: |
           cd ${{ inputs.firmware_name }}
