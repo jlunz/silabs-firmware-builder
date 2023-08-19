@@ -69,7 +69,7 @@ jobs:
           #   patchpath: "EmberZNet/SkyConnect"
           - target: e2201_rodret
             device: EFR32MG21A010F1024IM32
-            patchpath: "EmberZNet/E2201_Rodret"
+            #patchpath: "EmberZNet/E2201_Rodret"
     uses: ./.github/workflows/silabs-firmware-build.yaml
     with:
       image_name: ${{ needs.build-container.outputs.image_name }}
