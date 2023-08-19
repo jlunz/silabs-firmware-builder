@@ -53,42 +53,42 @@ jobs:
           build-args:
             "GECKO_SDK_VERSION=v${{ env.sdk_version }}"
 
-  ezsp-firmware-build:
-    name: EmberZNet NCP
-    needs: build-container
-    strategy:
-      matrix:
-        include:
-          # - target: yellow
-          #   device: MGM210PA32JIA
-          #   components: simple_led:board_activity,zigbee_token_interface
-          #   patchpath: "EmberZNet/Yellow"
-          # - target: skyconnect
-          #   device: EFR32MG21A020F512IM32
-          #   components: zigbee_token_interface
-          #   patchpath: "EmberZNet/SkyConnect"
-          # - target: e2201_rodret
-          #   device: EFR32MG21A010F1024IM32
-            #patchpath: "EmberZNet/E2201_Rodret"
-    uses: ./.github/workflows/silabs-firmware-build.yaml
-    with:
-      image_name: ${{ needs.build-container.outputs.image_name }}
-      firmware_name: ncp-uart-hw-${{ matrix.target }}
-      project_file: "/gecko_sdk/protocol/zigbee/app/ncp/sample-app/ncp-uart-hw/ncp-uart-hw.slcp"
-      project_name: "ncp-uart-hw"
-      device: ${{ matrix.device }}
-      components: ${{ matrix.components }}
-      configuration:  |
-        SL_IOSTREAM_USART_VCOM_RX_BUFFER_SIZE:64,
-        EMBER_APS_UNICAST_MESSAGE_COUNT:20,
-        EMBER_NEIGHBOR_TABLE_SIZE:26,
-        EMBER_SOURCE_ROUTE_TABLE_SIZE:200,
-      patchpath: ${{ matrix.patchpath }}
-      extra_c_defs: "'-DEMBER_ADDRESS_TABLE_SIZE=16' '-DEMBER_MULTICAST_TABLE_SIZE=16'"
-      sdk_version: ${{ needs.build-container.outputs.sdk_version }}
-      metadata_fw_type: "ncp-uart-hw"
-      baudrate: 115200
-      metadata_extra: "{ \"ezsp_version\": \"7.3.1.0\" }"
+  # ezsp-firmware-build:
+  #   name: EmberZNet NCP
+  #   needs: build-container
+  #   strategy:
+  #     matrix:
+  #       include:
+  #         # - target: yellow
+  #         #   device: MGM210PA32JIA
+  #         #   components: simple_led:board_activity,zigbee_token_interface
+  #         #   patchpath: "EmberZNet/Yellow"
+  #         # - target: skyconnect
+  #         #   device: EFR32MG21A020F512IM32
+  #         #   components: zigbee_token_interface
+  #         #   patchpath: "EmberZNet/SkyConnect"
+  #         # - target: e2201_rodret
+  #         #   device: EFR32MG21A010F1024IM32
+  #           #patchpath: "EmberZNet/E2201_Rodret"
+  #   uses: ./.github/workflows/silabs-firmware-build.yaml
+  #   with:
+  #     image_name: ${{ needs.build-container.outputs.image_name }}
+  #     firmware_name: ncp-uart-hw-${{ matrix.target }}
+  #     project_file: "/gecko_sdk/protocol/zigbee/app/ncp/sample-app/ncp-uart-hw/ncp-uart-hw.slcp"
+  #     project_name: "ncp-uart-hw"
+  #     device: ${{ matrix.device }}
+  #     components: ${{ matrix.components }}
+  #     configuration:  |
+  #       SL_IOSTREAM_USART_VCOM_RX_BUFFER_SIZE:64,
+  #       EMBER_APS_UNICAST_MESSAGE_COUNT:20,
+  #       EMBER_NEIGHBOR_TABLE_SIZE:26,
+  #       EMBER_SOURCE_ROUTE_TABLE_SIZE:200,
+  #     patchpath: ${{ matrix.patchpath }}
+  #     extra_c_defs: "'-DEMBER_ADDRESS_TABLE_SIZE=16' '-DEMBER_MULTICAST_TABLE_SIZE=16'"
+  #     sdk_version: ${{ needs.build-container.outputs.sdk_version }}
+  #     metadata_fw_type: "ncp-uart-hw"
+  #     baudrate: 115200
+  #     metadata_extra: "{ \"ezsp_version\": \"7.3.1.0\" }"
 
   ezsp-bootloader-build:
     name: UART bootloader for EmberZNet
