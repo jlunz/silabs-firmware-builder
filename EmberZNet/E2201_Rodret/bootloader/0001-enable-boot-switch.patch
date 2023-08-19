@@ -1,0 +1,20 @@
+diff --git a/config/btl_gpio_activation_cfg.h b/config/btl_gpio_activation_cfg.h
+index 83b3e6d..86a69f5 100644
+--- a/config/btl_gpio_activation_cfg.h
++++ b/config/btl_gpio_activation_cfg.h
+@@ -37,9 +37,12 @@
+ // <gpio> SL_BTL_BUTTON
+ 
+ // $[GPIO_SL_BTL_BUTTON]
+-#warning "GPIO activation port not configured"
+-//#define SL_BTL_BUTTON_PORT                      gpioPortB
+-//#define SL_BTL_BUTTON_PIN                       0
++#ifndef SL_BTL_BUTTON_PORT                      
++#define SL_BTL_BUTTON_PORT                       gpioPortA
++#endif
++#ifndef SL_BTL_BUTTON_PIN                       
++#define SL_BTL_BUTTON_PIN                        6
++#endif
+ // [GPIO_SL_BTL_BUTTON]$
+ 
+ // <<< sl:end pin_tool >>>
