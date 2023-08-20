@@ -102,7 +102,7 @@ jobs:
     uses: ./.github/workflows/silabs-firmware-build.yaml
     with:
       image_name: ${{ needs.build-container.outputs.image_name }}
-      firmware_name: ncp-uart-hw-${{ matrix.target }}
+      firmware_name: bootloader-uart-xmodem-${{ matrix.target }}
       project_file: "/gecko_sdk/platform/bootloader/sample-apps/Series-2/bootloader-uart-xmodem/bootloader-uart-xmodem.slcp"
       project_name: "bootloader-uart-xmodem"
       device: ${{ matrix.device }}
