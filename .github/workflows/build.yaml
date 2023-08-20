@@ -106,6 +106,7 @@ jobs:
       project_file: "/gecko_sdk/platform/bootloader/sample-apps/Series-2/bootloader-uart-xmodem/bootloader-uart-xmodem.slcp"
       project_name: "bootloader-uart-xmodem"
       device: ${{ matrix.device }}
+      disable_gbl_build: "Yes"
       components: ${{ matrix.components }}
       configuration:  |
       patchpath: ${{ matrix.patchpath }}

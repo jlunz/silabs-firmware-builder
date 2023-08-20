@@ -47,6 +47,9 @@ on:
         required: false
         default: "null"
         type: string
+      disable_gbl_build:
+        required: false
+        type: string
 
 jobs:
   firmware-build:
@@ -123,6 +126,7 @@ jobs:
               } + ${{ inputs.metadata_extra }}' >  version.json
 
       - name: Generate gbl Firmware
+        if: "${{ inputs.disable_gbl_build == '' }}"
         run: |
           cd ${{ inputs.firmware_name }}
           commander gbl create build/release/${{ inputs.project_name }}.gbl \
