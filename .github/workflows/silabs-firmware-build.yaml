@@ -17,7 +17,7 @@ on:
         required: true
         type: string
       baudrate:
-        required: true
+        required: false
         type: number
       device:
         required: true
@@ -51,6 +51,9 @@ on:
         default: "null"
         type: string
       slcp_yaml_changes:
+        required: false
+        type: string
+      disable_gbl_build:
         required: false
         type: string
 
@@ -93,6 +96,7 @@ jobs:
               --configuration="${{ inputs.configuration }}"
 
       - name: Set Baudrate
+        if: "${{ inputs.baudrate != '' }}"
         run: |
           cd ${{ inputs.firmware_name }}
           sed -Ei "s/^(\s*#define SL_\S+_VCOM_BAUDRATE\s+)[0-9]+/\\1${{ inputs.baudrate }}/" \
@@ -139,7 +143,7 @@ jobs:
       - name: Build Firmware
         run: |
           cd ${{ inputs.firmware_name }}
-          make -f ${{ inputs.project_name }}.Makefile release
+          POST_BUILD_EXE=/opt/commander/commander make -f ${{ inputs.project_name }}.Makefile release
       - name: Add Firmware Metadata
         run: |
           cd ${{ inputs.firmware_name }}
@@ -152,6 +156,7 @@ jobs:
               } + ${{ inputs.metadata_extra }}' >  version.json
 
       - name: Generate gbl Firmware
+        if: "${{ inputs.disable_gbl_build == '' }}"
         run: |
           cd ${{ inputs.firmware_name }}
           commander gbl create build/release/${{ inputs.project_name }}.gbl \
